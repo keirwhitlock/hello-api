@@ -5,12 +5,14 @@
 `go mod init github.com/keirwhitlock/hello-api`
 
 ### V0 (1 day)
+
 - [ ] Onboarding Documentation
 - [ ] Simple API response (hello world)
 - [ ] Unit Tests
 - [ ] Running somewhere other than the dev machine
 
 ### V1 (7 days)
+
 - [ ] Create transition endpoint
 - [ ] Store translations in short-term storage
 - [ ] Call existing service for translation
@@ -19,7 +21,9 @@
 ## Setup
 
 ### Install Go
+
 `sudo make setup`
 
 ### Upgrade Go
+
 `sudo make install-go`
