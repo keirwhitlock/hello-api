@@ -2,6 +2,8 @@
 
 ## Release Milestones
 
+`go mod init github.com/keirwhitlock/hello-api`
+
 ### V0 (1 day)
 - [ ] Onboarding Documentation
 - [ ] Simple API response (hello world)
