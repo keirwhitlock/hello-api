@@ -134,10 +134,14 @@ jobs:
     runs-on: ubuntu-latest
     needs: test
     steps:
-      - name: Check out code into the Go module dir
+      - name: Checkout out code into Go module dir
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+
+      - uses: google-github-actions/auth@v1
+        with:
+          credentials_json: "${{ secrets.GCP_CREDENTIALS }}"
 
       - name: Deploy App
         id: deploy
