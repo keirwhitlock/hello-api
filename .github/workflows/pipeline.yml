@@ -126,5 +126,24 @@ jobs:
           runtime: go121
           service_account_email: "hello-api@development-424609.iam.gserviceaccount.com"
 
-      - id: teset
+      - id: test
         run: curl "${{ steps.deploy.outputs.url }}/hello"
+
+  deploy-paas:
+    name: Deploy Paas
+    runs-on: ubuntu-latest
+    needs: test
+    steps:
+      - name: Check out code into the Go module dir
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Deploy App
+        id: deploy
+        uses: google-github-actions/deploy-appengine@main
+        with:
+          credentials: ${{ secrets.GCP_CREDENTIALS }}
+
+      - id: test
+        run: curl "${{ steps.deploy.outputs.url }}/translate/hello"
