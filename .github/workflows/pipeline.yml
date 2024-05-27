@@ -116,6 +116,7 @@ jobs:
       - uses: google-github-actions/auth@v2
         with:
           credentials_json: "${{ secrets.GCP_CREDENTIALS }}"
+          service_account: "hello-api@development-424609.iam.gserviceaccount.com"
 
       - name: Deploy function
         id: deploy
