@@ -28,6 +28,12 @@ func TestTranslateAPI(t *testing.T) {
 			ExpectedTranslation: "hallo",
 		},
 		{
+			Endpoint:            "/hello?language=french",
+			StatusCode:          http.StatusOK,
+			ExpectedLanguage:    "french",
+			ExpectedTranslation: "bonjour",
+		},
+		{
 			Endpoint:            "/hello?language=dutch",
 			StatusCode:          http.StatusNotFound,
 			ExpectedLanguage:    "",
