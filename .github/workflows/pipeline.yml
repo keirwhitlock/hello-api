@@ -124,6 +124,7 @@ jobs:
           name: translate
           entry_point: Translate
           runtime: go120
+          service_account_email: "hello-api@development-424609.iam.gserviceaccount.com"
 
       - id: teset
         run: curl "${{ steps.deploy.outputs.url }}/hello"
