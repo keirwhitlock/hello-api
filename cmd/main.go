@@ -21,5 +21,7 @@ func main() {
 	mux.HandleFunc("/health", handlers.HealthCheck)
 
 	log.Printf("listening on %s\n", addr)
-	log.Fatal(http.ListenAndServe(addr, mux))
+
+	err := http.ListenAndServe(addr, mux)
+	log.Fatalf("ERROR: %s", err)
 }
