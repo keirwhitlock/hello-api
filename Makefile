@@ -1,7 +1,7 @@
 GO_VERSION := 1.20.3
 .PHONY: install-go init-go
 
-setup: install-go init-go
+setup: install-go init-go copy-hooks
 
 #TODO add MacOs support
 install-go:
@@ -11,6 +11,9 @@ install-go:
 init-go:
 	echo 'export PATH=$$PATH:/usr/local/go/bin' >> $${HOME}/.bashrc
 	echo 'export PATH=$$PATH:$${HOME}/go/bin' >> $${HOME}/.bashrc
+copy-hooks:
+	chmod +x scripts/hooks/*
+	cp -r scripts/hooks .git/.
 
 build:
 	go build -o api cmd/main.go
