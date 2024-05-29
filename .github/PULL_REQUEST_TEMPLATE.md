@@ -1,5 +1,5 @@
 ### Description
-Please exmplain the changes you made here.
+Please explain the changes you made here.
 
 ### Associated Task
 Please list close, fixed or resolved issues here with a # and the number.
