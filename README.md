@@ -27,3 +27,5 @@
 ### Upgrade Go
 
 `sudo make install-go`
+
+test
