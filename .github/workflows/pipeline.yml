@@ -8,6 +8,21 @@ on:
     branches:
       - main
 jobs:
+  vet:
+    name: Static Analysis
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up Go 1.x
+        uses: actions/setup-go@v5
+        with:
+          go-version: ^1.20.3
+
+      - name: Check out code into Go module dir
+        uses: actions/checkout@v4
+
+      - name: Run Format Check
+        run: go vet ./...
+
   format-check:
     name: Check formatting
     runs-on: ubuntu-latest
@@ -25,6 +40,7 @@ jobs:
   test:
     needs:
       - format-check
+      - vet
     name: Test Application
     runs-on: ubuntu-latest
     steps:

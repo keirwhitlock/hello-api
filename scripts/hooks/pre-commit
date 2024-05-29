@@ -9,4 +9,3 @@ else
         git add $file
     done
 fi
-golang-ci run
