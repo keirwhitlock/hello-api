@@ -37,10 +37,19 @@ jobs:
 
       - name: Run Format Check
         run: make check-format
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+      - name: Lint
+        uses: golangci/golangci-lint-action@v2
   test:
     needs:
       - format-check
       - vet
+      - lint
     name: Test Application
     runs-on: ubuntu-latest
     steps:
