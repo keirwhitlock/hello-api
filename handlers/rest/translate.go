@@ -1,3 +1,4 @@
+// Package rest :
 package rest
 
 import (
@@ -14,6 +15,10 @@ type Resp struct {
 	Translation string `json:"translation"`
 }
 
+type Translator interface {
+	Translate(word string, language string) string
+}
+
 func TranslateHandler(w http.ResponseWriter, r *http.Request) {
 	enc := json.NewEncoder(w)
 	w.Header().Set("Content-Type", "application/json; charset=utf-8")
@@ -24,17 +29,16 @@ func TranslateHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	word := strings.ReplaceAll(r.URL.Path, "/", "")
-	translated_word := translation.Translate(word, language)
+	translatedWord := translation.Translate(word, language)
 
-	if translated_word == "" {
-		language = ""
+	if translatedWord == "" {
 		w.WriteHeader(http.StatusNotFound)
 		return
 	}
 
 	resp := Resp{
 		Language:    language,
-		Translation: translated_word,
+		Translation: translatedWord,
 	}
 	err := enc.Encode(resp)
 	if err != nil {

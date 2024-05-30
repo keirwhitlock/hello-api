@@ -1,16 +1,18 @@
-GO_VERSION := 1.20.3
+GO_VERSION := 1.20
 .PHONY: install-go init-go
 
-setup: install-go init-go copy-hooks
+setup: install-go init-go copy-hooks install-lint
 
-#TODO add MacOs support
 install-go:
-	wget "https://golang.org/dl/go$(GO_VERSION).linux-amd64.tar.gz"
-	tar -C /usr/local -xvf go$(GO_VERSION).linux-amd64.tar.gz
-	rm go$(GO_VERSION).linux-amd64.tar.gz
+	brew install "go@$(GO_VERSION)"
+
 init-go:
-	echo 'export PATH=$$PATH:/usr/local/go/bin' >> $${HOME}/.bashrc
-	echo 'export PATH=$$PATH:$${HOME}/go/bin' >> $${HOME}/.bashrc
+	echo 'export PATH=$$PATH:/usr/local/go/bin/go' >> $${HOME}/.zshrc
+	echo 'export PATH=$$PATH:$${HOME}/go/bin' >> $${HOME}/.zshrc
+
+install-lint:
+	brew install golangci-lint
+
 copy-hooks:
 	chmod +x scripts/hooks/*
 	cp -r scripts/hooks .git/.
@@ -29,3 +31,6 @@ report:
 
 check-format:
 	test -z $$(go fmt ./...)
+
+static-check:
+	golangci-lint run
