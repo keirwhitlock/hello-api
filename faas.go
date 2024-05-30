@@ -1,3 +1,4 @@
+// Package faas : function as a service handler
 package faas
 
 import (

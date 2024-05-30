@@ -1,3 +1,4 @@
+// Package translation :
 package translation
 
 import "strings"
