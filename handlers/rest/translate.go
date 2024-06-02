@@ -3,7 +3,6 @@ package rest
 
 import (
 	"encoding/json"
-	"github.com/keirwhitlock/hello-api/translation"
 	"net/http"
 	"strings"
 )
@@ -19,7 +18,17 @@ type Translator interface {
 	Translate(word string, language string) string
 }
 
-func TranslateHandler(w http.ResponseWriter, r *http.Request) {
+type TranslateHandler struct {
+	service Translator
+}
+
+func NewTranslateHandler(service Translator) *TranslateHandler {
+	return &TranslateHandler{
+		service: service,
+	}
+}
+
+func (t *TranslateHandler) TranslateHandler(w http.ResponseWriter, r *http.Request) {
 	enc := json.NewEncoder(w)
 	w.Header().Set("Content-Type", "application/json; charset=utf-8")
 
@@ -29,16 +38,16 @@ func TranslateHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	word := strings.ReplaceAll(r.URL.Path, "/", "")
-	translatedWord := translation.Translate(word, language)
+	translation := t.service.Translate(word, language)
 
-	if translatedWord == "" {
+	if translation == "" {
 		w.WriteHeader(http.StatusNotFound)
 		return
 	}
 
 	resp := Resp{
 		Language:    language,
-		Translation: translatedWord,
+		Translation: translation,
 	}
 	err := enc.Encode(resp)
 	if err != nil {

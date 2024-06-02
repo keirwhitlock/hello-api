@@ -2,6 +2,7 @@ package rest
 
 import (
 	"encoding/json"
+	"github.com/keirwhitlock/hello-api/translation"
 	"net/http"
 	"net/http/httptest"
 	"testing"
@@ -41,7 +42,8 @@ func TestTranslateAPI(t *testing.T) {
 		},
 	}
 
-	handler := http.HandlerFunc(TranslateHandler)
+	underTest := NewTranslateHandler(translation.NewStaticService())
+	handler := http.HandlerFunc(underTest.TranslateHandler)
 
 	for _, test := range tt {
 		// Arrage
